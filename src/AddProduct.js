@@ -1,16 +1,25 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 
 const AddProduct = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    category: '',
+    quantity: 0,
+    price: 0,
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Add your logic to save the product
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(JSON.stringify(formData));
+    console.log(formData);
   };
 
   return (
@@ -22,7 +31,7 @@ const AddProduct = () => {
               <h2>Add Product</h2>
             </div>
             <div className="card-body">
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
                     Name:
@@ -30,16 +39,11 @@ const AddProduct = () => {
                   <input
                     type="text"
                     id="name"
-                    className={`form-control ${
-                      errors.name ? 'is-invalid' : ''
-                    }`}
-                    {...register('name', { required: true })}
+                    name="name"
+                    className="form-control"
+                    value={formData.name}
+                    onChange={handleInputChange}
                   />
-                  {errors.name && (
-                    <div className="invalid-feedback">
-                      Product name is required.
-                    </div>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
@@ -47,16 +51,11 @@ const AddProduct = () => {
                   </label>
                   <textarea
                     id="description"
-                    className={`form-control ${
-                      errors.description ? 'is-invalid' : ''
-                    }`}
-                    {...register('description', { required: true })}
+                    name="description"
+                    className="form-control"
+                    value={formData.description}
+                    onChange={handleInputChange}
                   ></textarea>
-                  {errors.description && (
-                    <div className="invalid-feedback">
-                      Product description is required.
-                    </div>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="category" className="form-label">
@@ -64,21 +63,16 @@ const AddProduct = () => {
                   </label>
                   <select
                     id="category"
-                    className={`form-control ${
-                      errors.category ? 'is-invalid' : ''
-                    }`}
-                    {...register('category', { required: true })}
+                    name="category"
+                    className="form-control"
+                    value={formData.category}
+                    onChange={handleInputChange}
                   >
                     <option value="">Select a category</option>
                     <option value="electronics">Electronics</option>
                     <option value="clothing">Clothing</option>
                     <option value="home">Home</option>
                   </select>
-                  {errors.category && (
-                    <div className="invalid-feedback">
-                      Product category is required.
-                    </div>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="quantity" className="form-label">
@@ -87,16 +81,11 @@ const AddProduct = () => {
                   <input
                     type="number"
                     id="quantity"
-                    className={`form-control ${
-                      errors.quantity ? 'is-invalid' : ''
-                    }`}
-                    {...register('quantity', { required: true, min: 0 })}
+                    name="quantity"
+                    className="form-control"
+                    value={formData.quantity}
+                    onChange={handleInputChange}
                   />
-                  {errors.quantity && (
-                    <div className="invalid-feedback">
-                      Product quantity is required and must be a positive number.
-                    </div>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="price" className="form-label">
@@ -105,16 +94,11 @@ const AddProduct = () => {
                   <input
                     type="number"
                     id="price"
-                    className={`form-control ${
-                      errors.price ? 'is-invalid' : ''
-                    }`}
-                    {...register('price', { required: true, min: 0 })}
+                    name="price"
+                    className="form-control"
+                    value={formData.price}
+                    onChange={handleInputChange}
                   />
-                  {errors.price && (
-                    <div className="invalid-feedback">
-                      Product price is required and must be a positive number.
-                    </div>
-                  )}
                 </div>
                 <button type="submit" className="btn btn-primary">
                   Add Product
