@@ -10,11 +10,19 @@ const SignUpUser = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    const { firstName, lastName, userName, email, password, confirmPassword } = data;
     if (data.password !== data.confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    alert(JSON.stringify(data));
+    alert(`
+      First name: ${firstName}
+      Last name: ${lastName}
+      Username: ${userName}
+      Email: ${email}
+      Password: ${password}
+      Confirm Password: ${confirmPassword}
+    `);
     console.log(data);
   };
 

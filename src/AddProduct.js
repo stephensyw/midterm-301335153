@@ -17,8 +17,15 @@ const AddProduct = () => {
   };
 
   const handleSubmit = (e) => {
+    const { name, description, category, quantity, price } = formData;
     e.preventDefault();
-    alert(JSON.stringify(formData));
+    alert(`
+        Name: ${name}
+        Description: ${description}
+        Category: ${category}
+        Quantity: ${quantity}
+        Price: $${price}
+      `);
     console.log(formData);
   };
 
